@@ -14,11 +14,13 @@
       <source src="./images/tra/logg.mp4" type="video/mp4">
     </video>
   </div>
+
   <div class="bg-container">
     <div class="bg-image img-1"></div>
     <div class="bg-image img-2"></div>
     <div class="bg-overlay"></div>
   </div>
+
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html">
@@ -85,6 +87,23 @@
       </ul>
     </section>
 
+    <section class="card-section container">
+      <h3>Digital Visiting Card</h3>
+      <p style="text-align:center; color: #333; margin-bottom: 20px;">Tap the card below to see the back</p>
+      
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img src="images/tra card1.jpg" alt="Business Card Front" class="card-img">
+            </div>
+            
+            <div class="flip-card-back">
+                <img src="images/tra card2.jpg" alt="Business Card Back" class="card-img">
+            </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="container contact-section">
       <h3>Enquiry</h3>
       <p>Send us an email or call any of the numbers above. For the full product brochure click <a href="products.html">Products</a>.</p>
@@ -115,6 +134,7 @@
   </footer>
 
   <script>
+    // Preloader Script
     window.addEventListener('load', function() {
       setTimeout(function() {
         var preloader = document.getElementById('preloader');
@@ -125,8 +145,13 @@
         }, 500);
       }, 5000);
     });
+
+    // Flip Card Script
+    function flipCard(card) {
+        const inner = card.querySelector('.flip-card-inner');
+        inner.classList.toggle('is-flipped');
+    }
   </script>
 
 </body>
 </html>
-
