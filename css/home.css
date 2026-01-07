@@ -3,8 +3,6 @@
   --accent2: #ff7e00; 
   --black: #111;
   --max-width: 1100px;
-  
-  /* Card Dimensions */
   --card-width: 350px;
   --card-height: 200px;
 }
@@ -166,9 +164,8 @@ body.loading {
 }
 .hero-copy h2{margin:0 0 12px;font-size:36px}
 .hero-copy p{margin:0 0 18px;font-size:16px;opacity:0.95}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap; align-items: center;}
 .btn{display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}
-.btn.primary{background:var(--black);color:var(--accent1)}
 .btn.ghost{background:transparent;color:var(--black);border:2px solid rgba(0,0,0,0.2)}
 
 .hero-card{
@@ -320,22 +317,19 @@ body.loading {
   z-index: 10;
 }
 
-/* Styles specifically for the Google Form */
 .form-wrapper {
   margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
-  overflow: hidden; /* prevents messy scrollbars on the container */
+  overflow: hidden; 
   border-radius: 8px;
   background: #fff;
 }
 
 .form-wrapper iframe {
   width: 100%;
-  max-width: 640px; /* Limits width on big screens */
-  /* I removed the fixed height here to let HTML control it, 
-     or you can force it here: height: 800px; */
+  max-width: 640px; 
   border: 0;
 }
 
@@ -391,4 +385,115 @@ body.loading {
   .main-nav{display:none}
   .hero-cta{justify-content:center}
   .phone-grid { grid-template-columns: 1fr; }
+}
+
+/* ========================================= */
+/* STAR BUTTON STYLES                        */
+/* ========================================= */
+.star-btn {
+  position: relative;
+  display: inline-block;
+  padding: 20px 35px;
+  background: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
+  border-radius: 100px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* Base Star Styles */
+.star-btn [class^="star-"] {
+  position: absolute;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+}
+
+.star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+.star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+.star-btn .star-3 { top: 40%; left: 40%; width: 5px;  transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+.star-btn .star-4 { top: 20%; left: 40%; width: 8px;  transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+.star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+.star-btn .star-6 { top: 5%;  left: 50%; width: 5px;  transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+
+/* Active State */
+.star-btn.active {
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 0 0 80px #ffffff8c;
+}
+.star-btn.active .star-1 { top: -20%; left: -20%; width: 20px; filter: drop-shadow(0 0 10px #fffdef); z-index: 2; }
+.star-btn.active .star-2 { top: 35%;  left: -25%; width: 15px; filter: drop-shadow(0 0 10px #fffdef); z-index: 2; }
+.star-btn.active .star-3 { top: 80%;  left: -10%; width: 10px; filter: drop-shadow(0 0 10px #fffdef); z-index: 2; }
+.star-btn.active .star-4 { top: -25%; left: 105%; width: 20px; filter: drop-shadow(0 0 10px #fffdef); z-index: 2; }
+.star-btn.active .star-5 { top: 30%;  left: 115%; width: 15px; filter: drop-shadow(0 0 10px #fffdef); z-index: 2; }
+.star-btn.active .star-6 { top: 80%;  left: 105%; width: 10px; filter: drop-shadow(0 0 10px #fffdef); z-index: 2; }
+.fil0 { fill: #fffdef; }
+
+
+/* ========================================= */
+/* PLANE BUTTON STYLES (NEW)                 */
+/* ========================================= */
+.plane-btn {
+  font-family: inherit;
+  font-size: 20px;
+  background: #000000;
+  color: #ffb400; 
+  padding: 0.7em 1.2em;
+  display: flex;
+  align-items: center;
+  border: 2px solid #ffb400;
+  border-radius: 16px;
+  overflow: hidden; /* Important for the slide out effect */
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none; /* Removes underline since it's an <a> tag */
+  line-height: 1;
+}
+
+.plane-btn span {
+  display: block;
+  margin-left: 0.5em;
+  transition: all 0.4s ease-in-out;
+  white-space: nowrap;
+}
+
+.plane-btn svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Clicked State (Triggered by JS) */
+.plane-btn.clicked .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.plane-btn.clicked svg {
+  /* Centers the plane and angles it */
+  transform: translateX(2.5em) rotate(45deg) scale(1.1);
+}
+
+.plane-btn.clicked span {
+  /* Moves text out of view */
+  transform: translateX(150%); 
+  opacity: 0; 
+}
+
+.plane-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+  from { transform: translateY(0.1em); }
+  to { transform: translateY(-0.1em); }
 }
