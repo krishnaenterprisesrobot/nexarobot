@@ -69,7 +69,6 @@
               <a href="tel:09448354944">09448354944</a>
               <a href="tel:08066045354">08066045354</a>
             </div>
-
           </div>
         </div>
       </div>
@@ -96,7 +95,6 @@
             <div class="flip-card-front">
                 <img src="images/tra card1.jpg" alt="Business Card Front" class="card-img">
             </div>
-            
             <div class="flip-card-back">
                 <img src="images/tra card2.jpg" alt="Business Card Back" class="card-img">
             </div>
@@ -105,8 +103,20 @@
     </section>
 
     <section id="contact" class="container contact-section">
-      <h3>Enquiry</h3>
-      <p>Send us an email or call any of the numbers above. For the full product brochure click <a href="products.html">Products</a>.</p>
+      <h3>Enquiry Form</h3>
+      <p>Send us an email, call us, or fill out the form below. For the full product brochure click <a href="products.html">Products</a>.</p>
+      
+      <div class="form-wrapper">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSf8Z0gciPwddtmTI1Yoq1nTyDrGjFMX9vSBXqF6g37R4_i-0w/viewform?embedded=true" 
+          width="640" 
+          height="800" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">
+          Loading…
+        </iframe>
+      </div>
     </section>
 
     <section class="map-section container">
@@ -138,11 +148,13 @@
     window.addEventListener('load', function() {
       setTimeout(function() {
         var preloader = document.getElementById('preloader');
-        preloader.style.opacity = '0';
-        setTimeout(function() {
-          preloader.style.display = 'none';
-          document.body.classList.remove('loading');
-        }, 500);
+        if(preloader) {
+            preloader.style.opacity = '0';
+            setTimeout(function() {
+              preloader.style.display = 'none';
+              document.body.classList.remove('loading');
+            }, 500);
+        }
       }, 5000);
     });
 
