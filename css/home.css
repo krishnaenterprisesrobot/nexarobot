@@ -1,6 +1,6 @@
 :root{
-  --accent1: #ffb347; /* light yellow-orange */
-  --accent2: #ff7e00; /* darker orange */
+  --accent1: #ffb347; 
+  --accent2: #ff7e00; 
   --black: #111;
   --max-width: 1100px;
   
@@ -11,7 +11,6 @@
 
 *{box-sizing:border-box}
 
-/* SMOOTH SCROLLING ENABLED */
 html {
   scroll-behavior: smooth;
 }
@@ -21,12 +20,11 @@ body{
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   color:var(--black);
   min-height:100vh;
-  /* Font smoothing for crisp text */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- PRELOADER STYLES --- */
+/* --- PRELOADER --- */
 body.loading {
   overflow: hidden;
 }
@@ -52,7 +50,7 @@ body.loading {
   border-radius: 20px; 
 }
 
-/* BACKGROUND SLIDESHOW */
+/* --- BACKGROUND --- */
 .bg-container {
   position: fixed;
   top: 0;
@@ -110,6 +108,7 @@ body.loading {
   padding:24px 0;
 }
 
+/* --- HEADER --- */
 .site-header{
   position: relative;
   z-index: 10;
@@ -148,6 +147,7 @@ body.loading {
 }
 .main-nav a:hover{ color: var(--accent1); }
 
+/* --- HERO --- */
 .hero{padding:48px 0; position: relative; z-index: 10;}
 .hero-inner{
   display:flex;
@@ -216,7 +216,6 @@ body.loading {
   text-decoration: none;
 }
 
-/* --- PHONE GRID --- */
 .phone-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -255,7 +254,7 @@ body.loading {
 .feature-list{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0;margin:8px 0 0}
 .feature-list li{background:rgba(0,0,0,0.06);padding:10px 12px;border-radius:8px;font-weight:600}
 
-/* --- NEW DIGITAL CARD SECTION STYLES --- */
+/* --- DIGITAL CARD STYLES --- */
 .card-section {
     margin-top: 22px;
     background: rgba(255,255,255,0.9);
@@ -273,8 +272,6 @@ body.loading {
     perspective: 1000px;
     cursor: pointer;
     margin: 20px auto; 
-    
-    /* Make card responsive for smaller screens */
     max-width: 100%;
 }
 
@@ -312,8 +309,8 @@ body.loading {
 .flip-card-back {
     transform: rotateY(180deg);
 }
-/* ------------------------------------- */
 
+/* --- CONTACT SECTION & GOOGLE FORM --- */
 .contact-section{
   margin-top:22px;
   background:rgba(255,255,255,0.9); 
@@ -323,6 +320,26 @@ body.loading {
   z-index: 10;
 }
 
+/* Styles specifically for the Google Form */
+.form-wrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden; /* prevents messy scrollbars on the container */
+  border-radius: 8px;
+  background: #fff;
+}
+
+.form-wrapper iframe {
+  width: 100%;
+  max-width: 640px; /* Limits width on big screens */
+  /* I removed the fixed height here to let HTML control it, 
+     or you can force it here: height: 800px; */
+  border: 0;
+}
+
+/* --- MAP & FOOTER --- */
 .map-section{
   margin: 40px auto 20px;
   text-align: center;
