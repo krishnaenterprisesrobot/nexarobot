@@ -45,8 +45,29 @@
           <h2>Spare parts for every jobsite</h2>
           <p>High quality JCB & Hitachi spares. Fast dispatch from Bangalore.</p>
           <div class="hero-cta">
-            <a class="btn primary" href="products.html">View Products</a>
-            <a class="btn ghost" href="https://maps.app.goo.gl/fMu3rjSuRhcPb2kQ8" target="_blank">Direct to Store</a>
+            
+            <a href="products.html" id="productBtn" class="star-btn">
+              View Products
+              <div class="star-1"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+              <div class="star-2"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+              <div class="star-3"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+              <div class="star-4"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+              <div class="star-5"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+              <div class="star-6"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+            </a>
+
+            <a href="https://maps.app.goo.gl/fMu3rjSuRhcPb2kQ8" target="_blank" class="plane-btn" id="storeBtn">
+              <div class="svg-wrapper-1">
+                <div class="svg-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                  </svg>
+                </div>
+              </div>
+              <span>Direct to Store</span>
+            </a>
+
           </div>
         </div>
 
@@ -144,7 +165,7 @@
   </footer>
 
   <script>
-    // Preloader Script
+    // 1. Preloader Script
     window.addEventListener('load', function() {
       setTimeout(function() {
         var preloader = document.getElementById('preloader');
@@ -158,10 +179,38 @@
       }, 5000);
     });
 
-    // Flip Card Script
+    // 2. Flip Card Script
     function flipCard(card) {
         const inner = card.querySelector('.flip-card-inner');
         inner.classList.toggle('is-flipped');
+    }
+
+    // 3. Star Button Script (Products)
+    const productBtn = document.getElementById('productBtn');
+    if(productBtn){
+      productBtn.addEventListener('click', function(e) {
+          e.preventDefault(); 
+          this.classList.toggle('active'); 
+          setTimeout(() => {
+              window.location.href = this.href;
+          }, 500);
+      });
+    }
+
+    // 4. Plane Button Script (Store/Maps)
+    const storeBtn = document.getElementById('storeBtn');
+    if(storeBtn){
+      storeBtn.addEventListener('click', function(e) {
+          e.preventDefault(); // Stop link initially
+          this.classList.add('clicked'); // Play animation
+          
+          // Wait 600ms for plane to fly, then open map in new tab
+          setTimeout(() => {
+              window.open(this.href, '_blank');
+              // Optional: remove class if user comes back to tab
+              setTimeout(() => { this.classList.remove('clicked'); }, 500);
+          }, 600);
+      });
     }
   </script>
 
