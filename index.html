@@ -6,11 +6,124 @@
   <title>KRISHNA ENTERPRISES</title>
   <link rel="icon" href="./logo.png" type="image/png" />
   <link rel="stylesheet" href="./css/home.css" />
+  <style>
+    /* Hero CTA Layout */
+    .hero-cta {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* --- NEW KE-CART BUTTON STYLES --- */
+    .ke-cart-container {
+      position: relative;
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      outline-offset: 4px;
+      transition: filter 250ms;
+      user-select: none;
+      touch-action: manipulation;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .ke-cart-container .shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      background: hsl(0deg 0% 0% / 0.25);
+      will-change: transform;
+      transform: translateY(2px);
+      transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+    }
+
+    .ke-cart-container .edge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      background: linear-gradient(
+        to left,
+        hsl(340deg 100% 16%) 0%,
+        hsl(340deg 100% 32%) 8%,
+        hsl(340deg 100% 32%) 92%,
+        hsl(340deg 100% 16%) 100%
+      );
+    }
+
+    .ke-cart-container .front {
+      display: block;
+      position: relative;
+      padding: 12px 27px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      background: hsl(345deg 100% 47%);
+      will-change: transform;
+      transform: translateY(-4px);
+      transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+    }
+
+    .ke-cart-container:hover {
+      filter: brightness(110%);
+    }
+
+    .ke-cart-container:hover .front {
+      transform: translateY(-6px);
+      transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+    }
+
+    .ke-cart-container:active .front {
+      transform: translateY(-2px);
+      transition: transform 34ms;
+    }
+
+    .ke-cart-container:hover .shadow {
+      transform: translateY(4px);
+      transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+    }
+
+    .ke-cart-container:active .shadow {
+      transform: translateY(1px);
+      transition: transform 34ms;
+    }
+
+    .ke-cart-container:focus:not(:focus-visible) {
+      outline: none;
+    }
+    /* --- END NEW BUTTON STYLES --- */
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .star-btn, .plane-btn, .ke-cart-container {
+        width: 100%;
+        text-align: center;
+      }
+      .ke-cart-container .front {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
 </head>
 <body class="loading">
 
   <div id="preloader">
-    <video autoplay muted playsinline>
+    <video id="preloaderVideo" autoplay muted playsinline>
       <source src="./images/tra/logg.mp4" type="video/mp4">
     </video>
   </div>
@@ -44,8 +157,8 @@
         <div class="hero-copy">
           <h2>Spare parts for every jobsite</h2>
           <p>High quality JCB & Hitachi spares. Fast dispatch from Bangalore.</p>
+          
           <div class="hero-cta">
-            
             <a href="products.html" id="productBtn" class="star-btn">
               View Products
               <div class="star-1"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
@@ -54,6 +167,12 @@
               <div class="star-4"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
               <div class="star-5"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
               <div class="star-6"><svg viewBox="0 0 784.11 815.53"><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></svg></div>
+            </a>
+
+            <a href="customer.html" class="ke-cart-container" id="cartBtn">
+              <span class="shadow"></span>
+              <span class="edge"></span>
+              <span class="front text"> KE Cart 🛒 </span>
             </a>
 
             <a href="https://maps.app.goo.gl/fMu3rjSuRhcPb2kQ8" target="_blank" class="plane-btn" id="storeBtn">
@@ -67,7 +186,6 @@
               </div>
               <span>Direct to Store</span>
             </a>
-
           </div>
         </div>
 
@@ -77,13 +195,10 @@
             <p># 14, 59/A, 4th 'H' Cross,<br>St. Joseph Nivas Road,</p>
             <p>Chikkamanahalli, Gottigere Post,<br>B.G. Road, Bangalore - 560 083</p>
           </div>
-          
           <div class="divider"></div>
-
           <h3>📞 Call Us</h3>
           <div class="contact-block phone-block">
             <p><a href="mailto:krishna.enterprises1459a@gmail.com">krishna.enterprises1459a@gmail.com</a></p>
-            
             <div class="phone-grid">
               <a href="tel:07676874498">07676874498</a>
               <a href="tel:08951533446">08951533446</a>
@@ -110,7 +225,6 @@
     <section class="card-section container">
       <h3>Digital Visiting Card</h3>
       <p style="text-align:center; color: #333; margin-bottom: 20px;">Tap the card below to see the back</p>
-      
       <div class="flip-card" onclick="flipCard(this)">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -126,7 +240,6 @@
     <section id="contact" class="container contact-section">
       <h3>Enquiry Form</h3>
       <p>Send us an email, call us, or fill out the form below. For the full product brochure click <a href="products.html">Products</a>.</p>
-      
       <div class="form-wrapper">
         <iframe 
           src="https://docs.google.com/forms/d/e/1FAIpQLSf8Z0gciPwddtmTI1Yoq1nTyDrGjFMX9vSBXqF6g37R4_i-0w/viewform?embedded=true" 
@@ -165,10 +278,30 @@
   </footer>
 
   <script>
-    // 1. Preloader Script
+    // 1. Preloader Script with Speed (3x) and Reverse Logic
     window.addEventListener('load', function() {
+      const preloader = document.getElementById('preloader');
+      const video = document.getElementById('preloaderVideo');
+
+      if (video) {
+        video.playbackRate = 3.0;
+        video.addEventListener('canplaythrough', function() {
+            setTimeout(() => {
+                video.pause();
+                video.currentTime = video.duration;
+                
+                const reverseInterval = setInterval(() => {
+                    if (video.currentTime <= 0.1) {
+                        clearInterval(reverseInterval);
+                    } else {
+                        video.currentTime -= 0.1;
+                    }
+                }, 33);
+            }, 100);
+        });
+      }
+
       setTimeout(function() {
-        var preloader = document.getElementById('preloader');
         if(preloader) {
             preloader.style.opacity = '0';
             setTimeout(function() {
@@ -176,16 +309,14 @@
               document.body.classList.remove('loading');
             }, 500);
         }
-      }, 5000);
+      }, 1700); 
     });
 
-    // 2. Flip Card Script
     function flipCard(card) {
         const inner = card.querySelector('.flip-card-inner');
         inner.classList.toggle('is-flipped');
     }
 
-    // 3. Star Button Script (Products)
     const productBtn = document.getElementById('productBtn');
     if(productBtn){
       productBtn.addEventListener('click', function(e) {
@@ -197,22 +328,17 @@
       });
     }
 
-    // 4. Plane Button Script (Store/Maps)
     const storeBtn = document.getElementById('storeBtn');
     if(storeBtn){
       storeBtn.addEventListener('click', function(e) {
-          e.preventDefault(); // Stop link initially
-          this.classList.add('clicked'); // Play animation
-          
-          // Wait 600ms for plane to fly, then open map in new tab
+          e.preventDefault(); 
+          this.classList.add('clicked'); 
           setTimeout(() => {
               window.open(this.href, '_blank');
-              // Optional: remove class if user comes back to tab
               setTimeout(() => { this.classList.remove('clicked'); }, 500);
           }, 600);
       });
     }
   </script>
-
 </body>
 </html>
