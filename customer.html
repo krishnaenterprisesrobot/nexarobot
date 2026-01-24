@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRISHNA ENTERPRISES | Catalog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+<div class="header">
+    <div class="header-top">
+        <div class="brand">KRISHNA ENTERPRISES</div>
+    </div>
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search Part No, Name..." onkeyup="handleSearch()">
+    </div>
+</div>
+
+<div class="container">
+    <div id="loading">
+        <div class="spinner"></div>
+        <p style="text-align:center; color:#6b7280; font-size:0.9em">Syncing Catalog...</p>
+    </div>
+    <div id="products" class="product-grid"></div>
+    <div id="loadMoreTrigger" class="load-trigger"></div>
+</div>
+
+<div id="cartFloat" class="cart-float" onclick="openCart()">
+    <span>View Cart</span>
+    <span id="cartCount" class="cart-badge">0</span>
+    <span>→</span>
+</div>
+
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+            <h2 style="margin:0; font-size:1.5rem">My Cart</h2>
+            <button onclick="closeModal('cartModal')" style="background:none; border:none; font-size:1.5rem; cursor:pointer">&times;</button>
+        </div>
+        <div id="cartItems" style="max-height:40vh; overflow-y:auto; margin-bottom:20px;"></div>
+        <div style="background:#f9fafb; padding:15px; border-radius:10px; margin-bottom:20px">
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px">
+                <span style="color:#6b7280">Total Items</span>
+                <span id="cartTotalItems" style="font-weight:600">0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center">
+                <span style="color:#374151; font-weight:600">Grand Total</span>
+                <span style="font-size:1.4rem; font-weight:800; color:var(--primary)">₹<span id="cartFinalTotal">0</span></span>
+            </div>
+        </div>
+        <div class="input-group">
+            <input id="userName" type="text" placeholder="Full Name (Required)">
+            <input id="userContact" type="tel" placeholder="Mobile Number (10 Digits)" maxlength="10">
+        </div>
+        <button class="primary-btn" onclick="showPaymentOptions()">PROCEED TO PAY</button>
+    </div>
+</div>
+
+<div id="paymentModal" class="modal">
+    <div class="modal-content" style="text-align:center">
+        <h3 style="margin-top:0">Scan to Pay</h3>
+        <p style="color:#6b7280">Amount: <b style="color:var(--dark); font-size:1.2em">₹<span id="payAmount">0</span></b></p>
+        <div style="background:white; border:1px solid #e5e7eb; padding:10px; display:inline-block; border-radius:12px; margin:15px 0;">
+            <img id="upiQR" src="" alt="QR" style="width:180px; height:180px; display:block">
+        </div>
+        <div id="mobilePayBtns" style="display:none; margin-top:10px;">
+            <a id="payLink" href="#" class="primary-btn" style="display:block; text-decoration:none; background:var(--primary); margin-bottom:10px">Pay via UPI App</a>
+        </div>
+        <button id="btnConfirmPaid" class="primary-btn" style="background:var(--dark)" onclick="finalizeOrder()">I HAVE PAID</button>
+        <br><br>
+        <button onclick="closeModal('paymentModal')" style="background:none; border:none; color:#666; text-decoration:underline; cursor:pointer">Cancel</button>
+    </div>
+</div>
+
+<div id="statusModal" class="modal">
+    <div class="modal-content" style="text-align:center; padding:40px 20px;">
+        <div class="spinner"></div>
+        <h3 id="statusText">Processing Order...</h3>
+    </div>
+</div>
+
+<div id="toast">Item added to cart</div>
+
+<script src="js/cart.js"></script>
+</body>
+</html>
