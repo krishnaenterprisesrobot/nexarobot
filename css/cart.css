@@ -117,7 +117,7 @@ body { font-family: 'Inter', sans-serif; background: var(--light); margin: 0; pa
 
 .price-row { margin-top: auto; display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; }
 .price { font-size: 1.1rem; font-weight: 800; color: var(--dark); }
-.mrp { font-size: 0.85rem; text-decoration: line-through; color: #9ca3af; }
+.mrp { font-size: 0.85rem; text-decoration: line-through; color: #d91818; }
 
 .action-area { height: 40px; position: relative; }
 
