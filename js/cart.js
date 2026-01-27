@@ -13,6 +13,7 @@ function loadProducts() {
     fetch(SCRIPT_URL + "?type=products")
     .then(r => r.json())
     .then(data => {
+        // Sort: Stock items first, then by quantity
         allProducts = data.sort((a, b) => (Number(b.stock) || 0) - (Number(a.stock) || 0));
         displayedProducts = allProducts;
         document.getElementById("loading").style.display = "none";
@@ -34,14 +35,40 @@ function renderChunk() {
     const html = chunk.map(p => {
         const safePartNo = String(p.partNo).trim(); 
         const qtyInCart = cart[safePartNo] ? cart[safePartNo].qty : 0;
-        const btnDisplay = qtyInCart > 0 ? 'none' : 'block';
         
+        // --- NEW LOGIC FOR STOCK CHECK ---
+        const currentStock = Number(p.stock) || 0;
+        const isOutOfStock = currentStock <= 0;
+        
+        // Calculate Discount
         const discount = p.mrp > p.price ? Math.round(((p.mrp - p.price) / p.mrp) * 100) : 0;
-        const discountHtml = discount > 0 ? `<div class="discount-badge">${discount}% OFF</div>` : '';
+        const discountHtml = (discount > 0 && !isOutOfStock) ? `<div class="discount-badge">${discount}% OFF</div>` : '';
+        
+        // Decide what to show for button
+        let buttonHtml;
+        if (isOutOfStock) {
+             buttonHtml = `<button class="oos-btn" disabled>OUT OF STOCK</button>`;
+        } else {
+             const btnDisplay = qtyInCart > 0 ? 'none' : 'block';
+             const ctrlDisplay = qtyInCart > 0 ? 'active' : '';
+             
+             buttonHtml = `
+                <button id="btn-${safePartNo}" class="add-btn" style="display: ${btnDisplay}" onclick="startAdd('${safePartNo}')">ADD TO CART</button>
+                <div id="ctrl-${safePartNo}" class="qty-controls ${ctrlDisplay}">
+                    <button class="qty-btn" onclick="updateQty('${safePartNo}', -1)">-</button>
+                    <span class="qty-display" id="disp-${safePartNo}">${qtyInCart}</span>
+                    <button class="qty-btn" onclick="updateQty('${safePartNo}', 1)">+</button>
+                </div>
+             `;
+        }
+
+        // Add class 'disabled' to wrapper if out of stock for visual effect
+        const wrapperClass = isOutOfStock ? 'product disabled' : 'product';
 
         return `
-        <div class="product" id="card-${safePartNo}">
+        <div class="${wrapperClass}" id="card-${safePartNo}">
             ${discountHtml}
+            ${isOutOfStock ? '<div class="stock-badge">SOLD OUT</div>' : ''}
             <div class="img-wrapper">
                 <img loading="lazy" src="${p.image || 'https://via.placeholder.com/150?text=No+Img'}" 
                      onerror="this.src='https://via.placeholder.com/150?text=No+Image'" alt="Product">
@@ -53,12 +80,7 @@ function renderChunk() {
                 <span class="mrp">₹${p.mrp}</span>
             </div>
             <div class="action-area">
-                <button id="btn-${safePartNo}" class="add-btn" style="display: ${btnDisplay}" onclick="startAdd('${safePartNo}')">ADD TO CART</button>
-                <div id="ctrl-${safePartNo}" class="qty-controls ${qtyInCart > 0 ? 'active' : ''}">
-                    <button class="qty-btn" onclick="updateQty('${safePartNo}', -1)">-</button>
-                    <span class="qty-display" id="disp-${safePartNo}">${qtyInCart}</span>
-                    <button class="qty-btn" onclick="updateQty('${safePartNo}', 1)">+</button>
-                </div>
+                ${buttonHtml}
             </div>
         </div>
         `;
@@ -100,16 +122,37 @@ function handleSearch() {
     }, 300);
 }
 
-function startAdd(partNo) { updateQty(partNo, 1); showToast("Item Added"); }
+function startAdd(partNo) { 
+    updateQty(partNo, 1); 
+    showToast("Item Added"); 
+}
 
 function updateQty(partNo, delta) {
     const pStr = String(partNo);
-    if (!cart[pStr]) {
-        const productData = allProducts.find(x => String(x.partNo) === pStr);
+    
+    // Find Product Data
+    let productData = cart[pStr];
+    if (!productData) {
+        productData = allProducts.find(x => String(x.partNo) === pStr);
         if(!productData) return;
+        // Check Stock again before initializing cart item
+        if ((Number(productData.stock) || 0) <= 0) {
+            alert("This item is currently out of stock.");
+            return;
+        }
         cart[pStr] = { ...productData, qty: 0 };
     }
+
+    // Update Quantity
     cart[pStr].qty += delta;
+    
+    // Security: Check if user is trying to add more than stock (Optional: enable if needed)
+    // if (cart[pStr].qty > productData.stock) {
+    //    alert("Max stock reached");
+    //    cart[pStr].qty = productData.stock;
+    //    return;
+    // }
+
     if (cart[pStr].qty <= 0) {
         delete cart[pStr];
         updateCardUI(pStr, 0);
@@ -124,7 +167,8 @@ function updateCardUI(partNo, qty) {
     const btn = document.getElementById(`btn-${partNo}`);
     const ctrl = document.getElementById(`ctrl-${partNo}`);
     const disp = document.getElementById(`disp-${partNo}`);
-    if (!btn) return;
+    if (!btn) return; // Happens if item is out of stock (btn doesn't exist)
+    
     if (qty > 0) {
         btn.style.display = 'none';
         ctrl.classList.add('active');
