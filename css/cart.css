@@ -1,6 +1,6 @@
 :root {
-    --primary: #059669;
-    --primary-dark: #047857;
+    --primary: #FFAB00;
+    --primary-dark: #FFC757;
     --accent: #ef4444;
     --dark: #1f2937;
     --light: #f3f4f6;
@@ -141,8 +141,19 @@ body { font-family: 'Inter', sans-serif; background: var(--light); margin: 0; pa
     margin-bottom: 10px;
 }
 
-.desc { font-size: 0.9rem; color: #e70046; line-height: 1.4; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 40px; }
-
+.desc { 
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1.2; 
+    margin-bottom: 12px; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    height: 42px; /* Slightly taller for 1.1rem text */
+    letter-spacing: -0.02em;
+}
 .price-row { margin-top: auto; display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; }
 .price { font-size: 1.1rem; font-weight: 800; color: var(--dark); }
 .mrp { font-size: 0.85rem; text-decoration: line-through; color: #d91818; }
